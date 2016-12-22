@@ -3,5 +3,8 @@
 <title>The Admin Page</title>
 @endsection
 @section('content')
-<h1>I Am Admin</h1>
+@if(Auth::user()->isAdmin())
+<li><a href="/admin">Admin</a></li>
+@endif
+@include('admin.grid')
 @endsection

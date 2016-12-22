@@ -53,7 +53,6 @@ Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallba
 Route::get('terms-of-service', 'PagesController@terms');
 
 //Test route
-
 Route::get('test',  ['middleware' => 'auth', 'uses' => 'TestController@index']);
 
 // Widget routes
@@ -64,4 +63,17 @@ Route::get( 'widget/{id}-{slug?}', ['as' => 'widget.show', 'uses' => 'WidgetCont
 
 Route::resource('widget', 'WidgetController', ['except' => ['show', 'create']]);
 
+//Profile Routes
+Route::get('show-profile', ['as' => 'show-profile','uses' => 'ProfileController@showProfileToUser']);
 
+Route::get('my-profile', ['as' => 'my-profile', 'uses' => 'ProfileController@myProfile']);
+
+Route::resource('profile', 'ProfileController');
+
+//User Controller
+Route::resource('user', 'UserController');
+
+//Setting Controller
+Route::get('settings', 'SettingsController@edit');
+Route::post('settings', ['as' => 'userUpdate',
+'uses' => 'SettingsController@update']);

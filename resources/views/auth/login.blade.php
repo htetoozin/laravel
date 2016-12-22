@@ -8,6 +8,19 @@
     </ol>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+
+            <div>
+
+                <a href="/auth/facebook">
+                    <button type="button"
+                            class="btn btn-primary btn-lg btn-block">Facebook Sign In
+                    </button>
+                </a>
+
+            </div>
+
+            <div>Login in with your Facebook sign in above or use the form below:</div>
+
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
@@ -21,9 +34,9 @@
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" autofocus>
 
                                 @if ($errors->has('email'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -35,9 +48,9 @@
                                 <input id="password" type="password" class="form-control" name="password">
 
                                 @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>

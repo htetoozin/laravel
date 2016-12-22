@@ -6,8 +6,30 @@ use Carbon\Carbon;
 
 trait HasModelTrait
 {
-	public function getCreatedAtAttribute($value)
+
+	public function showStatusOf($record)
 	{
-		return Carbon::parse($value)->format('m-d-Y');
+
+		switch ($record) {
+
+			case $record->status_id == 10:
+
+			return 'Active';
+			break;
+
+			case $record->status_id == 7:
+
+			return 'Inactive';
+			break;
+
+			default:
+
+			return 'Inactive';
+
+		}
+
 	}
+
+
+
 }

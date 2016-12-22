@@ -8,15 +8,19 @@
     </ol>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-        <div>
+
+            <div>
+
                 <a href="/auth/facebook">
                     <button type="button"
                             class="btn btn-primary btn-lg btn-block">Facebook Sign In
                     </button>
                 </a>
+
             </div>
+
             <div>Register with your Facebook sign in above or use the form below:</div>
-            
+
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
@@ -30,9 +34,9 @@
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus>
 
                                 @if ($errors->has('name'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('name') }}</strong>
-                                </span>
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -44,9 +48,9 @@
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -58,9 +62,9 @@
                                 <input id="password" type="password" class="form-control" name="password">
 
                                 @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -72,9 +76,9 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
 
                                 @if ($errors->has('password_confirmation'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                </span>
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         </div>
@@ -95,25 +99,25 @@
 
                                 </a></label>
 
-                                <div class="col-md-6">
-                                    <input type="checkbox"  name="terms" required>
-                                    @if ($errors->has('terms'))
+                            <div class="col-md-6">
+                                <input type="checkbox"  name="terms" required>
+                                @if ($errors->has('terms'))
                                     <span class="help-block"><strong>{{ $errors->first('terms') }}</strong></span>
-                                    @endif
-                                </div>
+                                @endif
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Register
-                                    </button>
-                                </div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Register
+                                </button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection
