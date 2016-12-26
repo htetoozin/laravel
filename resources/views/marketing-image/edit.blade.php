@@ -19,6 +19,7 @@
 
     <hr/>
 
+
     <!-- delete button -->
 
         <div class="form-group pull-right">
@@ -133,6 +134,18 @@
                 </span>
 
             @endif
+
+
+            <!-- image_weight Form Input -->
+            <div class="form-group{{ $errors->has('image_weight') ? ' has-error' : '' }}">
+                <label class="control-label">Image Weight</label>
+                <input type="number" class="form-control" name="image_weight" value="{{ $marketingImage->image_weight }}">
+                @if ($errors->has('image_weight'))
+                    <span class="help-block">
+                    <strong>{{ $errors->first('image_weight') }}</strong>
+                </span>
+                @endif
+            </div>
 
             <!-- Submit Button -->
 

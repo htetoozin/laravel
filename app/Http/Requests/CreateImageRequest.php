@@ -25,6 +25,7 @@ public function rules()
         'is_active' => 'required|boolean',
         'is_featured' => 'required|boolean',
         'image' => 'required|mimes:jpeg,jpg,bmp,png|max:1000',
+        'image_weight' => 'integer|between:1,100'
         ];
     }
 }

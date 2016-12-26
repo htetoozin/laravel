@@ -11,7 +11,8 @@ class MarketingImage extends SuperModel
 	protected $fillable = ['is_active',
 							'is_featured',
 							'image_name',
-							'image_extension'];
+							'image_extension',
+							'image_weight'];
 
 
 	public function showActiveStatus($is_active)

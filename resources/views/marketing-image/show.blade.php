@@ -2,116 +2,134 @@
 
 @section('title')
 
-<title>{{ $marketingImage->name }}</title>
+    <title>{{ $marketingImage->name }}</title>
 
 @endsection
 
 @section('content')
 
-<ol class='breadcrumb'>
-    <li><a href='/'>Home</a></li>
-    <li><a href='/marketing-image'>Marketing Images</a></li>
-    <li><a href='/marketing-image/{{ $marketingImage->id }}'>{{ $marketingImage->image_name }}</a></li>
-</ol>
+    <ol class='breadcrumb'>
+        <li><a href='/'>Home</a></li>
+        <li><a href='/marketing-image'>Marketing Images</a></li>
+        <li><a href='/marketing-image/{{ $marketingImage->id }}'>{{ $marketingImage->image_name }}</a></li>
+    </ol>
 
-<h1>{{ $marketingImage->image_name }} Marketing Image</h1>
+    <h1>{{ $marketingImage->image_name }} Marketing Image</h1>
 
-<div class="pull-left">
+    <div class="pull-left">
 
 
-    <a href="/marketing-image/{{ $marketingImage->id }}/edit">
+        <a href="/marketing-image/{{ $marketingImage->id }}/edit">
 
-        <button type="button" class="btn btn-primary btn-lg">Edit Image</button></a>
+            <button type="button" class="btn btn-primary btn-lg">Edit Image</button></a>
 
     </div>
+
     <br><br>
 
     <hr/>
-    
+
     <div class="panel panel-default">
 
-        <!-- Table -->
-        <table class="table table-striped">
 
-            <tr>
+            <!-- Table -->
+            <table class="table table-striped">
 
-                <th>Thumbnail</th>
+                <tr>
 
-            </tr>
+                    <th>Thumbnail</th>
 
-            <tr>
+                </tr>
 
-                <td>
+                <tr>
 
-                    <img src="{{ $marketingImage->showImage($marketingImage, $thumbnailPath) }}">
+                    <td>
 
-                </td>
+                        <img src="{{ $marketingImage->showImage($marketingImage, $thumbnailPath) }}">
 
-            </tr>
+                    </td>
 
-            <tr>
+                </tr>
 
-                <th>Active?</th>
+                <tr>
 
-            </tr>
+                    <th>Active?</th>
 
-            <tr>
+                </tr>
 
-                <td>{{ $marketingImage->showActiveStatus($marketingImage->is_active) }}</td>
+                <tr>
 
-            </tr>
+                    <td>{{ $marketingImage->showActiveStatus($marketingImage->is_active) }}</td>
 
-            <tr>
+                </tr>
 
-                <th>Featured?</th>
+                <tr>
 
-            </tr>
+                    <th>Featured?</th>
 
-            <tr>
+                </tr>
 
-                <td>{{ $marketingImage->showFeaturedStatus($marketingImage->is_featured) }}</td>
+                <tr>
 
-            </tr>
+                    <td>{{ $marketingImage->showFeaturedStatus($marketingImage->is_featured) }}</td>
 
-            <tr>
+                </tr>
 
-                <th>Primary Image</th>
+                <tr>
 
-            </tr>
+                    <th>Image Weight</th>
 
-            <tr>
+                </tr>
 
-                <td>
+                <tr>
 
-                    <img src="{{ $marketingImage->showImage($marketingImage, $imagePath) }}" style="max-width: 600px;">
+                    <td>{{ $marketingImage->image_weight }}</td>
 
-                </td>
-            </tr>
+                </tr>
 
-            <tr>
-                <td>
+                <tr>
 
-                    <div class="form-group pull-left">
+                    <th>Primary Image</th>
 
-                        <form class="form" role="form" method="POST" action="{{ url('/marketing-image/'. $marketingImage->id) }}">
-                            <input type="hidden" name="_method" value="delete">
-                            {{ csrf_field() }}
 
-                            <input class="btn btn-danger" Onclick="return ConfirmDelete();" type="submit" value="Delete">
+                </tr>
 
-                        </form>
-                    </div>
+                <tr>
 
-                </td>
+                    <td>
 
-            </tr>
+                        <img src="{{ $marketingImage->showImage($marketingImage, $imagePath) }}" style="max-width: 600px;">
 
-        </table>
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <td>
+
+                        <div class="form-group pull-left">
+
+                            <form class="form" role="form" method="POST" action="{{ url('/marketing-image/'. $marketingImage->id) }}">
+                                <input type="hidden" name="_method" value="delete">
+                                {{ csrf_field() }}
+
+                                <input class="btn btn-danger" Onclick="return ConfirmDelete();" type="submit" value="Delete">
+
+                            </form>
+                        </div>
+
+
+                    </td>
+
+                </tr>
+
+            </table>
 
     </div>
 
-    @endsection
-    @section('scripts')
+@endsection
+@section('scripts')
     <script>
         function ConfirmDelete()
         {
@@ -122,4 +140,4 @@
                 return false;
         }
     </script>
-    @endsection
+@endsection

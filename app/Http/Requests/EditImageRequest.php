@@ -26,7 +26,8 @@ class EditImageRequest extends FormRequest
         return [
             'is_active' => 'required|boolean',
             'is_featured' => 'required|boolean',
-            'image' => 'mimes:jpeg,jpg,bmp,png|max:1000'
+            'image' => 'mimes:jpeg,jpg,bmp,png|max:1000',
+            'image_weight' => 'integer|between:1,100'
         ];
     }
 }

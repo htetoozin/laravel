@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Traits\ManagesImages;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests;
 use App\Http\Requests\CreateImageRequest;
 use App\MarketingImage;
 use App\Http\Requests\EditImageRequest;
+
 
 class MarketingImageController extends Controller
 {
@@ -13,9 +17,12 @@ class MarketingImageController extends Controller
 
     public function __construct()
     {
+
         $this->middleware('auth');
         $this->middleware('admin');
+
         $this->setImageDefaultsFromConfig('marketingImage');
+
 
     }
     /**
@@ -23,15 +30,14 @@ class MarketingImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
+
         $thumbnailPath = $this->thumbnailPath;
 
-        $marketingImages = MarketingImage::paginate(10);
+        $marketingImages = MarketingImage::orderBy('image_weight', 'asc')->paginate(8);
 
         return view('marketing-image.index', compact('marketingImages', 'thumbnailPath'));
-
     }
 
     /**
@@ -39,34 +45,36 @@ class MarketingImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function create()
     {
-
         return view('marketing-image.create');
-
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     public function store(CreateImageRequest $request)
     {
         //create new instance of model to save from form
 
         $marketingImage = new MarketingImage([
-
             'image_name'        => $request->get('image_name'),
             'image_extension'   => $request->file('image')->getClientOriginalExtension(),
             'is_active'         => $request->get('is_active'),
-            'is_featured'       => $request->get('is_featured')
+            'is_featured'       => $request->get('is_featured'),
+            'image_weight'      => $request->get('image_weight')
 
         ]);
 
+        // format checkbox values
+
+        $this->formatCheckboxValue($marketingImage);
+
         // save model
+
         $marketingImage->save();
 
         // get instance of file
@@ -88,27 +96,24 @@ class MarketingImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function show($id)
     {
-
         $marketingImage = MarketingImage::findOrFail($id);
 
         $thumbnailPath = $this->thumbnailPath;
 
         $imagePath = $this->imagePath;
 
-        return view('marketing-image.show', compact('marketingImage', 'thumbnailPath', 'imagePath'));
 
+        return view('marketing-image.show', compact('marketingImage', 'thumbnailPath', 'imagePath'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function edit($id)
     {
         $marketingImage = MarketingImage::findOrFail($id);
@@ -116,7 +121,6 @@ class MarketingImageController extends Controller
         $thumbnailPath = $this->thumbnailPath;
 
         return view('marketing-image.edit', compact('marketingImage', 'thumbnailPath'));
-
     }
 
     /**
@@ -126,22 +130,22 @@ class MarketingImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function update($id, EditImageRequest $request)
     {
         $marketingImage = MarketingImage::findOrFail($id);
 
-        $this->setUpdatedModelValues($request, $marketingImage);
+        $this->setUpdatedImageValues($request, $marketingImage);
 
         // if file, we have additional requirements before saving
 
         if ($this->newFileIsUploaded()) {
 
             $this->deleteExistingImages($marketingImage);
-            $this->setNewFileExtension($request, $marketingImage);
 
+            $this->setNewFileExtension($request, $marketingImage);
         }
 
+        $this->formatCheckboxValue($marketingImage);
 
         $marketingImage->save();
 
@@ -150,6 +154,7 @@ class MarketingImageController extends Controller
         if ($this->newFileIsUploaded()){
 
             $file = $this->getUploadedFile();
+
             $this->saveImageFiles($file, $marketingImage);
 
         }
@@ -169,7 +174,6 @@ class MarketingImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function destroy($id)
     {
         $marketingImage = MarketingImage::findOrFail($id);
@@ -181,31 +185,35 @@ class MarketingImageController extends Controller
         alert()->error('Notice', 'image deleted!');
 
         return redirect()->route('marketing-image.index');
-
     }
 
-    /**
-     * @param EditImageRequest $request
-     * @param $marketingImage
-     */
-
-    private function setNewFileExtension(EditImageRequest $request, $marketingImage)
+    public function formatCheckboxValue($marketingImage)
     {
 
-        $marketingImage->image_extension = $request->file('image')->getClientOriginalExtension();
-
+        $marketingImage->is_active = ($marketingImage->is_active == null) ? 0 : 1;
+        $marketingImage->is_featured = ($marketingImage->is_featured == null) ? 0 : 1;
     }
 
     /**
      * @param EditImageRequest $request
      * @param $marketingImage
      */
+    private function setNewFileExtension(EditImageRequest $request, $marketingImage)
+    {
+        $marketingImage->image_extension = $request->file('image')->getClientOriginalExtension();
+    }
 
-    private function setUpdatedModelValues(EditImageRequest $request, $marketingImage)
+    /**
+     * @param EditImageRequest $request
+     * @param $marketingImage
+     */
+    private function setUpdatedImageValues(EditImageRequest $request, $marketingImage)
     {
 
         $marketingImage->is_active = $request->get('is_active');
         $marketingImage->is_featured = $request->get('is_featured');
-
+        $marketingImage->image_weight = $request->get('image_weight');
     }
+
+
 }
