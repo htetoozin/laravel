@@ -26,7 +26,7 @@ enctype="multipart/form-data">
 	</span>
 	@endif
 </div>
-
+<!-- image_weight Form Input -->
 <div class="form-group{{ $errors->has('image_weight') ? ' has-error' : '' }}">
 
     <label class="control-label">Image Weight</label>
