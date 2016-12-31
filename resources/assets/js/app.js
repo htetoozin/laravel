@@ -14,6 +14,8 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('widget-grid', require('./components/WidgetGrid.vue'));
+Vue.component('marketing-image-grid', require('./components/MarketingImageGrid.vue'));
 
 const app = new Vue({
     el: '#app'

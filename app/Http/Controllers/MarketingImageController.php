@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Traits\ManagesImages;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use App\Http\Requests;
+//use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Input;
+//use App\Http\Requests;
 use App\Http\Requests\CreateImageRequest;
 use App\MarketingImage;
 use App\Http\Requests\EditImageRequest;
@@ -20,9 +20,7 @@ class MarketingImageController extends Controller
 
         $this->middleware('auth');
         $this->middleware('admin');
-
         $this->setImageDefaultsFromConfig('marketingImage');
-
 
     }
     /**
@@ -38,6 +36,8 @@ class MarketingImageController extends Controller
         $marketingImages = MarketingImage::orderBy('image_weight', 'asc')->paginate(7);
 
         return view('marketing-image.index', compact('marketingImages', 'thumbnailPath'));
+
+
     }
 
     /**
@@ -68,13 +68,8 @@ class MarketingImageController extends Controller
             'image_weight'      => $request->get('image_weight')
 
         ]);
-
-        // format checkbox values
-
-        $this->formatCheckboxValue($marketingImage);
-
+        
         // save model
-
         $marketingImage->save();
 
         // get instance of file
@@ -144,8 +139,6 @@ class MarketingImageController extends Controller
 
             $this->setNewFileExtension($request, $marketingImage);
         }
-
-        $this->formatCheckboxValue($marketingImage);
 
         $marketingImage->save();
 

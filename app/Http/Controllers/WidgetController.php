@@ -28,8 +28,9 @@ class WidgetController extends Controller
      */
     public function index()
     {
-        $widgets = Widget::paginate(10);
-        return view('widget.index', compact('widgets'));
+        /*$widgets = Widget::paginate(10);
+        return view('widget.index', compact('widgets'));*/
+        return view('widget.index');
     }
 
     /**

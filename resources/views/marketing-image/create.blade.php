@@ -8,11 +8,11 @@
 	<li><a href='/marketing-image'>Marketing Images</a></li>
 	<li class='active'>Create</li>
 </ol>
+
 <h2>Create a New Marketing Image</h2>
 <hr/>
-<form class="form" role="form" method="POST"
-action="{{ url('/marketing-image') }}"
-enctype="multipart/form-data">
+
+<form class="form" role="form" method="POST" action="{{ url('/marketing-image') }}" enctype="multipart/form-data">
 {{ csrf_field() }}
 <!-- image_name Form Input -->
 <div class="form-group{{ $errors->has('image_name') ?
@@ -26,22 +26,7 @@ enctype="multipart/form-data">
 	</span>
 	@endif
 </div>
-<!-- image_weight Form Input -->
-<div class="form-group{{ $errors->has('image_weight') ? ' has-error' : '' }}">
 
-    <label class="control-label">Image Weight</label>
-
-    <input type="number" class="form-control" name="image_weight" value="{{ old('image_weight') }}">
-	@if ($errors->has('image_weight'))
-
-        <span class="help-block">
-         	<strong>{{ $errors->first('image_weight') }}</strong>
-        </span>
-
-    @endif
-            
-
-</div>
 <!-- is_active Form Input -->
 <div class="form-group{{ $errors->has('is_active') ?
 	' has-error' : '' }}">
@@ -60,6 +45,7 @@ enctype="multipart/form-data">
 		</span>
 		@endif
 	</div>
+	
 	<!-- is_featured Form Input -->
 	<div class="form-group{{ $errors->has('is_featured') ?
 		' has-error' : '' }}">
@@ -77,6 +63,20 @@ enctype="multipart/form-data">
 				<strong>{{ $errors->first('is_featured') }}</strong>
 			</span>
 			@endif
+		</div>
+		<!-- image_weight Form Input -->
+		<div class="form-group{{ $errors->has('image_weight') ? ' has-error' : '' }}">
+
+		    <label class="control-label">Image Weight</label>
+
+		    <input type="number" class="form-control" name="image_weight" value="{{ old('image_weight') }}">
+			@if ($errors->has('image_weight'))
+
+		        <span class="help-block">
+		         	<strong>{{ $errors->first('image_weight') }}</strong>
+		        </span>
+
+		    @endif
 		</div>
 		<!-- image file Form Input -->
 		<div class="form-group{{ $errors->has('image') ?
@@ -96,5 +96,6 @@ enctype="multipart/form-data">
 					Create
 				</button>
 			</div>
+		</div>
 		</form>
 		@endsection
